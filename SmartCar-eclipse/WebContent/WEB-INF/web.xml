@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+  version="4.0">
+  <welcome-file-list>
+      <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+   <servlet>
+		<!--方法接口类ImgProgram-->
+		<servlet-name>ImgProgram</servlet-name>
+		<servlet-class>com.servlet.ImgProgram</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<!--用户在前台的访问路径-->
+		<servlet-name>ImgProgram</servlet-name>
+		<url-pattern>/ImgProgram</url-pattern>
+	</servlet-mapping>
+</web-app>

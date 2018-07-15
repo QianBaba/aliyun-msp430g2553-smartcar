@@ -1,0 +1,171 @@
+body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+[data-role=page] {
+	background: url(../img/home.jpg);
+	background-size: cover;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
+.home_head {
+	width: 80%;
+	height: 40px;
+	top: 0;
+	left: 20%;
+	position: absolute;
+	border-bottom: solid aqua;
+}
+.home_head a {
+	text-decoration: none;
+	font-size: 24px;
+	right: 10px;
+	position: absolute;
+	letter-spacing: 7px;
+	top: 10px;
+	color: red;
+}
+#myPanel {
+	width: 80px;
+/*	background: red;*/
+	overflow: hidden;
+	background: none;
+}
+.slide {
+	height: 90%;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+.left {
+	height: 70%;
+	width: 25%;
+	float: left;
+	text-align: center;
+}
+.left .l_left{
+	margin: auto;
+	width: 120px;
+	height: 120px;
+	background: url(../img/left.png);background-size: cover;
+	margin-top: 50%;
+	border-radius:100%;
+	opacity: 0.9;
+}
+.right .paizhao{
+	position: absolute;
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	top: 10%;
+	right: 60%;
+	background:url(../img/photo.png);
+	background-size: cover;
+}
+.left .rotate {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	border-radius: 100%;
+	bottom: 10%;
+	left: 30%;
+	background:url(../img/reset.png);
+	background-size: cover;
+}
+.left .l_start{
+	position: absolute;
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	top: 10%;
+	left: 15%;
+	background:url(../img/start.png);
+	background-size: cover;
+}
+.left .l_advance{
+	position: absolute;
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	bottom: 15%;
+	left: 15%;
+	background:url(../img/advance.png);
+	background-size: cover;
+}
+
+.right {
+	height: 100%;
+	width: 25%;
+	float: left;
+	position: relative;
+	text-align: center;
+}
+.right .reset {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	border-radius: 100%;
+	bottom: 10%;
+	right: 120%;
+	background:url(../img/stop.png);
+	background-size: cover;
+}
+.right .r_right{
+	margin: auto;
+	width: 120px;
+	height: 120px;
+	margin-top: 50%;
+	border-radius:100%;
+	background: url(../img/right.png);background-size: cover;
+	opacity: 0.9;
+}
+.r_back {
+	position: absolute;
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	bottom:15%;
+	right: 60%;
+	background:url(../img/advance.png);
+	background-size: cover;
+	transform: rotate(180deg);
+}
+.right div:hover {
+	border: solid sandybrown;
+	
+}
+.left div:hover {
+	border: solid white;
+}
+.center {
+	width: 50%;
+	height: 100%;
+	float: left;
+	text-align:center;
+	position: relative;
+}
+td {
+	text-align: center;
+}
+td div {
+	width: 30px;
+	height: 25px;
+	padding-top: 5px;
+	text-align: center;
+	border-radius: 100%;
+	background: white;
+}
+.draw1,.draw2{
+	width: 100%;
+	height: 50%;
+	background: aqua;
+	opacity: 0.7;
+}
+#list1 li:hover {
+	color: red;
+}
+#list2 li:hover {
+	color: red;
+}

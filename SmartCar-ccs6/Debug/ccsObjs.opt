@@ -1,0 +1,1 @@
+"./Advance.obj" "./ColorLED.obj" "./HC05.obj" "./Ultrasound.obj" "./duoji.obj" "./hongwai.obj" "./main.obj" "./xunji.obj" "../lnk_msp430g2553.cmd" -llibc.a 
