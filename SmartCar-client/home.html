@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+		<link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<script src="http://gosspublic.alicdn.com/aliyun-oss-sdk-4.4.4.min.js"></script>
+		<!--对象存储在前端并没有使用到，所以这个js文件没有用-->
+		<!-- 阿里云对象存储 -->
+		<script src="js/home.js"></script>
+		<link rel="stylesheet" href="css/home.css" />
+		<title>主页</title>
+		<script>
+			//主页面分了三个页面，按钮控制显示
+			$(document).on("pagecreate","#home_page",function(){
+				$("#myPanel div a:eq(0)").on("tap",function(){
+					$(this).css('background','red');
+					$("#myPanel div a:eq(1)").css('background','blueviolet');
+					$("#myPanel div a:eq(2)").css('background','green');
+					$(".slide:eq(0)").show();
+					$(".slide:eq(1)").hide();
+					$(".slide:eq(2)").hide();
+				});
+				$("#myPanel div a:eq(1)").on("tap",function(){
+					$(this).css('background','red');
+					$("#myPanel div a:eq(0)").css('background','aqua');
+					$("#myPanel div a:eq(2)").css('background','green');
+					$(".slide:eq(1)").show();
+					$(".slide:eq(0)").hide();
+					$(".slide:eq(2)").hide();
+				});
+				$("#myPanel div a:eq(2)").on("tap",function(){
+					$(this).css('background','red');
+					$("#myPanel div a:eq(0)").css('background','aqua');
+					$("#myPanel div a:eq(1)").css('background','blueviolet');
+					$(".slide:eq(2)").show();
+					$(".slide:eq(1)").hide();
+					$(".slide:eq(0)").hide();
+				});
+			});
+			
+		</script>
+	</head>
+	<body>
+		<div data-role="page" id="home_page">
+			<!--菜单面板，在右侧，控制不同的页面-->
+			<div data-role="panel" id="myPanel" data-position="right"> 
+			    <div data-role="controlgroup" data-type="vertical" style="width: 80%;height: 100%;right: 15px;top: 60px; position: absolute;opacity: 0.8;">
+					<a href="" data-role="button" style="width: 50px;height: 50px;background: aqua;border: none;">基本<br />功能</a>
+					<a href="" data-role="button" style="width: 50px;height: 50px;background: blueviolet;border: none;">高级<br />功能</a>
+					<a href="" data-role="button" style="width: 50px;height: 50px;background: green;border: none;">自动<br />巡逻</a>
+				</div>
+			</div>
+			<!--设置面板，在左侧，控制蓝牙和视频开关-->
+			<div data-role="panel" id="myPanel_set" style="width:30%;overflow: hidden;">
+				<label><span>蓝牙</span><input type="checkbox" data-role="flipswitch" class="switch_blue"></label>
+			    
+			    <div style="font-size: small;">
+		            <p>未配对蓝牙设备</p>
+		            <ul id="list1"style="list-style: none;overflow: scroll;height: 80px;">
+		            </ul>
+		        </div>
+				<div style="font-size: small;">
+		            <p>已配对蓝牙设备</p>
+		            <ul id="list2" style="list-style: none;overflow: scroll;height: 20px;color: royalblue;">
+		            </ul>
+		        </div>
+		        <label><span>视频</span><input type="checkbox" data-role="flipswitch" onchange="getMedia()"></label>
+			</div>
+			<!--主页面-->
+			<div data-role="main" style="width: 100%;height: 100%;overflow: hidden;">
+				<div style="width: 20%;height: 40px;border-bottom: solid aqua;"><a href="#myPanel_set" style="text-decoration: none;font-size: 24px;letter-spacing: 7px;top: 10px;position: absolute;left: 10px;">设置</a></div>
+				<div class="home_head">
+					
+					<h3 style="margin-left:25%;margin-top: 10px;color: white;">智能巡逻车操作平台</h3>
+					<a href="#myPanel">菜单</a>
+				</div>
+				<!--第一个页面，主操作页面-->
+				<div class="slide">
+					<div class="left">
+						<div class="l_start"></div>
+						<div class="l_left"></div>
+						<div class="l_advance"></div>
+						<div class="rotate"></div>
+					</div>
+					<div class="center">
+						<video id="video" autoplay width="320px" height="210px" style="margin-top: 7%;" poster="img/video_poster.jpg"></video>
+					</div>
+					<div class="right">
+						<div class="paizhao" onclick="getPhoto()"></div>
+						<div class="r_right"></div>
+						<div class="r_back"></div>
+						<div class="reset"></div>
+					</div>
+				</div>
+				<!--第二个页面，具体功能页面和状态显示页面-->
+				<div class="slide">
+					<div style="border-right: solid red;width: 50%;float: left;">
+						<table cellpadding="6">
+							<tr>
+								<td><button class="xunji" style="background: green;border: none;">寻迹避障</button></td>
+								<td><div class="l1">L1</div></td>
+								<td><div class="r1">R1</div></td>
+								<td><div class="l2">L2</div></td>
+								<td><div class="r2">R2</div></td>
+							</tr>
+							<tr>
+								<td><button style="background: brown;border: none;" class="hongwai">红外避障</button></td>
+								<td colspan="3"><div style="width: 150px;height: 30px;border-radius: 0;" id="hongtext">红外</div></td>
+							</tr>
+							<tr>
+								<td><button class="color_led" style="background: yellow;border: none;">七彩探照</button></td>
+								<td><div class="red">红</div></td>
+								<td><div class="green">绿</div></td>
+								<td><div class="blue">蓝</div></td>
+							</tr>
+							<tr>
+								<td><button style="background: hotpink;border: none;">园艺浇灌</button></td>
+								<td colspan="3"><div style="width: 150px;height: 30px;border-radius: 0;">时间/t</div></td>
+							</tr>
+						</table>
+					</div>
+					<!--用于绘制波形图，暂未实现-->
+					<div class="draw" style="width: 47%;height: 85%;float: right;">
+						<div class="draw1">
+							<canvas id="c1" class="canvas"></canvas>
+						</div>
+						<br />
+						<div class="draw2">
+							<canvas id="c2" class="canvas"></canvas>
+						</div>
+					</div>
+					<script src="js/draw.js"></script>
+				</div>
+				<!--图像识别的页面-->
+				<div class="slide">
+					<div style="border-right: solid red;width: 50%;float: left;">
+						<button id="freemove" style="position: absolute;left: 20%;top: 2%;background: #00FFFF;width: 100px;height: 40px;font-size: medium;border: none;text-align: left;">智能巡逻</button>
+						<h3 style="color: green;">状态监测</h3>
+						<table cellpadding="10">
+							<tr>
+								<td><div class="normal">N</div></td>
+								<td><div class="run">R</div></td>
+								<td><div class="stopped">S</div></td>
+								<td><div class="exception">E</div></td>
+							</tr>
+							<tr>
+								<td colspan="2" style="letter-spacing: 14px;color: yellow;font-size: 18px;">寻迹</td>
+								<td><div class="xunji_free"></div></td>
+								<td colspan="2" style="letter-spacing: 14px;color: teal;font-size: 18px;">探照</td>
+								<td><div class="led_free"></div></td>
+							</tr>
+							<tr>
+								<td colspan="2" style="letter-spacing: 14px;color: darkorange;font-size: 18px;">摄像</td>
+								<td><div class="camera_check"></div></td>
+								<td colspan="2" style="letter-spacing: 14px;color: red;font-size: 18px;">警报</td>
+								<td><div class="jingbao"></div></td>
+							</tr>
+						</table>
+					</div>
+					<div style="width: 47%;float: right;">
+						<h3 style="color: yellow;">图像识别</h3>
+						<button id="upload" style="position: absolute;right: 16%;top: 2%;background: #00FFFF;width: 100px;height: 40px;font-size: medium;border: none;text-align: left;">上传识别</button>
+						<canvas id="photo" style="width: 200px;height: 120px;background:url(img/video_poster.jpg);background-size: cover;"></canvas>
+						<!--<table cellpadding="10">
+							<tr>
+								<th style="color: aqua;font-size: 18px;">红绿灯</th>
+								<th style="color: aqua;font-size: 18px;">障碍物</th>
+								<th style="color: aqua;font-size: 18px;">其他</th>
+							</tr>
+							<tr>
+								<td><div></div></td>
+								<td><div></div></td>
+								<td><div></div></td>
+							</tr>
+						</table>  -->
+						<h3 style="color: red;">识别结果</h3>
+						<ol id="id_list" style="height:80px;overflow:scroll;color:white;font-size:small"></ol>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<script>
+			//开启手机摄像头
+			var video = document.getElementById("video");  
+	        var audio, audioType;  
+	        var switch_c=1;
+	        var canvas1 = document.getElementById("photo");  
+	        var context1 = canvas1.getContext('2d');   
+	  
+	        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;  
+	        window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;  
+	  
+	        function getMedia() {
+	        	switch_c++;
+	        	if((switch_c%2)==0){
+	        		$(".camera_check").css('background','darkorange');
+	        		if (navigator.getUserMedia) {  
+		                navigator.getUserMedia({  
+		                    'video': { facingMode: { exact: "environment" } },//'video':{ 'facingMode': "user" },//
+		                    'audio':true  
+		                }, successFunc, errorFunc);    //success是获取成功的回调函数  
+		            }  
+		            else {  
+		                alert('Native device media stoped.');  
+		            }  
+	        	}
+	        	else{
+	        		video.src="";
+	        		video.poster="img/video_poster.jpg";
+	        		$(".camera_check").css('background','white');
+	        	}
+	            
+	        }  
+	  
+	        function successFunc(stream) {  
+	            //alert('Succeed to get media!');  
+	            if (video.mozSrcObject !== undefined) {  
+	                //Firefox中，video.mozSrcObject最初为null，而不是未定义的，我们可以靠这个来检测Firefox的支持  
+	                video.mozSrcObject = stream;  
+	            }  
+	            else {  
+	                video.src = window.URL && window.URL.createObjectURL(stream) || stream;  
+	            }  
+	  
+	            //video.play();  
+	  
+	            // 音频  
+	            audio = new Audio();  
+	            audioType = getAudioType(audio);  
+	            if (audioType) {  
+	                audio.src = 'polaroid.' + audioType;  
+	                audio.play();  
+	            }  
+	        }  
+	        function errorFunc(e) {  
+	            alert('Error！'+e);  
+	        }    
+	  
+	        //获取音频格式  
+	        function getAudioType(element) {  
+	            if (element.canPlayType) {  
+	                if (element.canPlayType('audio/mp4; codecs="mp4a.40.5"') !== '') {  
+	                    return ('aac');  
+	                } else if (element.canPlayType('audio/ogg; codecs="vorbis"') !== '') {  
+	                    return ("ogg");  
+	                }  
+	            }  
+	            return false;  
+	        }  
+	  
+	        //拍照  
+	        function getPhoto() {  
+	            context1.drawImage(video, 0, 0,300,180); //将video对象内指定的区域捕捉绘制到画布上指定的区域，实现拍照。  
+	        }
+//*********************************************************
+	        //var client = new OSS.Wrapper({
+				//region : 'oss-cn-shenzhen',
+				//accessKeyId : '*******',阿里云RAM访问ID
+				//accessKeySecret : '********',阿里云RAM访问密码
+				//bucket : '*****'对昂存储的bucket，保存图片的父目录
+			//});
+	        $(document).on("pagecreate","#home_page",function(){
+	        	$("#upload").click(function(){
+	        		on_click_upload_file();
+    			});
+	        });
+	        //上传图片至后台
+	        function on_click_upload_file(){
+	        	//获取拍照后canvas的图片的url
+	        	var Data= canvas1.toDataURL('image/png');
+	        	var imageData = Data.substring(22);
+	        	
+				var suffix = ".png";
+				var obj=timestamp();  // 这里是生成文件名 
+				var filename=obj+suffix;
+				$.post(
+			        "http://hostname/SmartCar/ImgDeal.jsp",//hostname是你Tomcat服务器的id或域名，请确保80端口可以访问，一般是hostname：8080
+			        {
+			            img_url: imageData,
+			            img_name: filename
+			        },
+			        function (data, status) {
+			            if (status === 'success') {
+			            	var list = document.getElementById('id_list'); //注册容器用来显示未配对设备
+			                list.innerHTML = ''; //清空容器
+			                //var arrdata=eval("("+data+")");
+			            	var data_back=data.split('\n')[0].replace(/[\r\n]/g,"");
+			                var arrdata=eval("("+data_back+")");
+			                //arrdata.errno=0说明识别成功
+			            	if(arrdata.errno==0)
+			            		{
+			            			for(var i=0;i<arrdata.tags.length;i++)
+			            				{
+			            					var li = document.createElement('li');
+			            					var un = arrdata.tags[i].value+":"+arrdata.tags[i].confidence;               
+			            	                li.innerText = un;
+			            	                list.appendChild(li);
+			            	                console.log(un);
+			            				}
+			            			if(arrdata.tags[0].value=="室内"||arrdata.tags[0].value=="广场"||arrdata.tags[0].value=="办公室"){
+			            				blooth_send_receive("7");
+			            			}
+			            			else if(arrdata.tags[0].value=="公路"||arrdata.tags[0].value=="街道"||arrdata.tags[0].value=="街景"||arrdata.tags[0].value=="室外"){
+			            				blooth_send_receive("8");
+			            			}
+			            			else if(arrdata.tags[0].value=="人物"||arrdata.tags[0].value=="聚餐")
+			            				blooth_send_receive("9");
+			            			else if(arrdata.tags[0].value=="小河"||arrdata.tags[0].value=="湖"||arrdata.tags[0].value=="斑马线"||arrdata.tags[0].value=="物品"){
+			            				blooth_send_receive("0");
+			            			}
+			            			else blooth_send_receive("f");		
+			            		}
+			            	else{
+			            		var li = document.createElement('li');
+            					var un = "识别异常";               
+            	                li.innerText = un;
+            	                list.appendChild(li);
+			            	}
+			               //alert("success");
+			            } else {
+			                alert("登录失败，请检查网络连接");
+			            }
+			        }
+			    );
+				
+			 }
+			  /**
+			  * 生成文件名
+			  * @returns
+			  */
+			 function timestamp(){  
+			     var time = new Date();  
+			     var y = time.getFullYear();  
+			     var m = time.getMonth()+1;  
+			     var d = time.getDate();  
+			     var h = time.getHours();  
+			     var mm = time.getMinutes();  
+			     var s = time.getSeconds();  
+			     
+			     console.log(y);
+			   
+			     return ""+y+add0(m)+add0(d)+add0(h)+add0(mm)+add0(s);  
+			 }  
+			 function add0(m){  
+			   return m<10?'0'+m : m;  
+			 } 
+		</script>
+	</body>
+</html>

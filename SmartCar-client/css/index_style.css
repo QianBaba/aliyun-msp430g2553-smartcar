@@ -1,0 +1,40 @@
+#login_page,#register_page {
+	background: url(../img/reg&log.jpg);
+	background-size: cover;
+}
+#index_page {
+	background: black;
+}
+* {
+	z-index: 1;
+}
+video {
+	z-index: -1;
+	left: 0px;
+    bottom: 0px;   
+    height: 100%;  
+    width: 100%;
+    position: fixed;
+    /*加滤镜*/  
+    /*-webkit-filter: grayscale(100%);*/  
+    /*filter:grayscale(100%);*/
+}
+.login_form {
+	width: 300px;
+	height: 300px;
+	right: 10px;
+	height: 20px;
+	opacity: 0.8;
+	position: absolute;
+}
+.register_form {
+	width: 300px;
+	height: 300px;
+	right: 10px;
+	height: 20px;
+	opacity: 0.8;
+	position: absolute;
+}
+
+
+
